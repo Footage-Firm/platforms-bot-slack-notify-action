@@ -1,0 +1,50 @@
+name: 'Slack Release Deployment'
+description: 'An opinionated Github action that notifies platforms-bot to update Slack based on a particular action.'
+author: 'Platforms'
+inputs:
+  action:
+    description: 'The type of event being performed, for a full list check the platforms-bot readme https://github.com/Footage-Firm/platforms-go-slackbot'
+    required: true
+  app_endpoint:
+    description: 'Endpoint of the environment that was deployed as part of this pipeline. If there is not an endpoint you have exposed, just use the git repo URL where the pipeline is being run.'
+    required: true
+  commit_author:
+    description: 'Full name associated with the commit being deployed. See the git-commit-data-action (https://github.com/rlespinasse/git-commit-data-action) for an option to expose this value.'
+    required: true
+  commit_message:
+    description: 'First line of the commit message associated with the deployment. See the git-commit-data-action (https://github.com/rlespinasse/git-commit-data-action) for an option to expose this value.'
+    required: true
+  commit_sha:
+    description: 'Full git SHA associated with the deployment. See the git-commit-data-action (https://github.com/rlespinasse/git-commit-data-action) for an option to expose this value.'
+    required: true
+  platforms_bot_token:
+    description: 'The token used to authenticate with platforms-bot'
+    required: true
+  repo_name:
+    description: 'The repo org and name. In most cases you should use {{ github.repository }}'
+    required: true
+
+  channel:
+    description: 'The slack channel to post to. If the action is init, this should be the channel name. Otherwise, the channel id.'
+    required: false
+  slack_ts:
+    description: 'The timestamp of the slack message to update. This is by actions other than init.'
+    required: false
+outputs:
+  slack_ts:
+    description: 'The slack timestamp represented the message that was created or updated'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.action }}
+    - ${{ inputs.app_endpoint }}
+    - ${{ inputs.commit_author }}
+    - ${{ inputs.commit_message }}
+    - ${{ inputs.commit_sha }}
+    - ${{ inputs.platforms_bot_token }}
+    - ${{ inputs.repo_name }}
+
+    - ${{ inputs.channel }}
+    - ${{ inputs.slack_ts }}
