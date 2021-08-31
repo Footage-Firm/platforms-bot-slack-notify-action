@@ -39,7 +39,7 @@ jobs:
         uses: Footage-Firm/platforms-bot-slack-notify-action@1.0.0
         with:
           action: "deploy_to_staging"
-          timestamp: "${{ steps.notify_slack.outputs.slack_ts }}"
+          slack_ts: "${{ steps.notify_slack.outputs.slack_ts }}"
           app_endpoint: "${{ env.APP_ENDPOINT }}"
           repo_name: "${{ github.repository }}"
           commit_sha: "${{ github.sha }}"
