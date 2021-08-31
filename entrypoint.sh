@@ -13,7 +13,7 @@ repo_name="${7?Must provide a repo name}"
 channel="${8}"
 slack_ts="${9}"
 
-cat <<EOF >> payload.json
+cat <<EOF >> /tmp/payload.json
 {
   "repo_name": "$repo_name",
   "commit_sha": "$commit_sha",
@@ -26,6 +26,6 @@ cat <<EOF >> payload.json
 }
 EOF
 TOKEN=$(echo $platforms_bot_token | tr -d \\n | base64)
-SLACK_TS=$(curl -X POST https://platforms-bot.storyblocks.io/webhooks/github -H "Authorization: Bearer $TOKEN" --data "@./payload.json" | jq -r .ts)
+SLACK_TS=$(curl -X POST https://platforms-bot.storyblocks.io/webhooks/github -H "Authorization: Bearer $TOKEN" --data "@/tmp/payload.json" | jq -r .ts)
 echo slack ts ====== $SLACK_TS
 echo "::set-output name=slack_ts::$SLACK_TS"
