@@ -29,6 +29,7 @@ jobs:
           commit_message: "${{ env.GIT_COMMIT_MESSAGE_SUBJECT }}"
           commit_author: "${{ env.GIT_COMMIT_AUTHOR_NAME }}"
           channel: "${{ env.SLACK_CHANNEL_NAME }}"
+          platforms_bot_token: "${{ secrets.PLATFORMS_BOT_AUTH_TOKEN }}"
 
       - name: Deploy to staging
         run: |
@@ -45,4 +46,5 @@ jobs:
           commit_message: "${{ env.GIT_COMMIT_MESSAGE_SUBJECT }}"
           commit_author: "${{ env.GIT_COMMIT_AUTHOR_NAME }}"
           channel: "${{ env.SLACK_CHANNEL_NAME }}"
+          platforms_bot_token: "${{ secrets.PLATFORMS_BOT_AUTH_TOKEN }}"
 ```
