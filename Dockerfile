@@ -1,5 +1,7 @@
 FROM curlimages/curl:7.76.1
 
+WORKDIR "/tmp"
+
 COPY LICENSE README.md /
 
 COPY entrypoint.sh /entrypoint.sh
