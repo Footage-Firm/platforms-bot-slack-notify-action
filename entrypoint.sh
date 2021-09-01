@@ -17,7 +17,7 @@ cat <<EOF >> /tmp/payload.json
 {
   "repo_name": "$repo_name",
   "commit_sha": "$commit_sha",
-  "commit_message": "$commit_message",
+  "commit_message": "`printf "%s" "$commit_message"`",
   "commit_author": "$commit_author",
   "channel": "$channel",
   "action": "$action",
@@ -25,6 +25,9 @@ cat <<EOF >> /tmp/payload.json
   "app_endpoint": "$app_endpoint"
 }
 EOF
+echo "Generated request"
+cat /tmp/payload.json
+
 TOKEN=$(echo $platforms_bot_token | tr -d \\n | base64)
 SLACK_TS=$(curl -X POST https://platforms-bot.storyblocks.io/webhooks/github -H "Authorization: Bearer $TOKEN" --data "@/tmp/payload.json" | jq -r .ts)
 echo slack ts ====== $SLACK_TS
