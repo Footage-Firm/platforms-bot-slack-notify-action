@@ -45,6 +45,7 @@ runs:
     - ${{ inputs.commit_sha }}
     - ${{ inputs.platforms_bot_token }}
     - ${{ inputs.repo_name }}
+    - ${{ inputs.argocd_app_name }}
 
     - ${{ inputs.channel }}
     - ${{ inputs.slack_ts }}

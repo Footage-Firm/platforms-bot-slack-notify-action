@@ -11,6 +11,7 @@ jobs:
     env:
       APP_ENDPOINT: "https://argocd.storyblocks.io/applications/staging-my-service"
       SLACK_CHANNEL_ID: "my-channel"
+      ARGOCD_APP_NAME: "staging-my-service"
       SLACK_CHANNEL_NAME: "C025JQVK5CP"
     steps:
       - name: Checkout code
@@ -41,6 +42,7 @@ jobs:
           action: "deploy_to_staging"
           slack_ts: "${{ steps.notify_slack.outputs.slack_ts }}"
           app_endpoint: "${{ env.APP_ENDPOINT }}"
+          argocd_app_name: "${{ env.ARGOCD_APP_NAME }}"
           repo_name: "${{ github.repository }}"
           commit_sha: "${{ github.sha }}"
           commit_message: "${{ env.GIT_COMMIT_MESSAGE_SUBJECT }}"

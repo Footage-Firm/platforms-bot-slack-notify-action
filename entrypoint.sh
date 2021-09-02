@@ -9,9 +9,10 @@ commit_message="${4?Must provide a commit message}"
 commit_sha="${5?Must provide a commit sha}"
 platforms_bot_token="${6?Must provide a commit sha}"
 repo_name="${7?Must provide a repo name}"
+argocd_app="${8?Must provide the argocd app name}"
 
-channel="${8}"
-slack_ts="${9}"
+channel="${9}"
+slack_ts="${10}"
 
 cat <<EOF >> /tmp/payload.json
 {
@@ -21,6 +22,7 @@ cat <<EOF >> /tmp/payload.json
   "commit_author": "$commit_author",
   "channel": "$channel",
   "action": "$action",
+  "argocd_app": "$argocd_app",
   "slack_ts": "$slack_ts",
   "app_endpoint": "$app_endpoint"
 }
