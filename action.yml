@@ -27,6 +27,9 @@ inputs:
   channel:
     description: 'The slack channel to post to. If the action is init, this should be the channel name. Otherwise, the channel id.'
     required: false
+  argocd_app:
+    description: 'The ArgoCD to target for rollbacks'
+    required: false
   slack_ts:
     description: 'The timestamp of the slack message to update. This is by actions other than init.'
     required: false
