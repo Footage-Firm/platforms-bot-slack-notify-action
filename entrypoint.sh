@@ -18,7 +18,7 @@ cat <<EOF >> /tmp/payload.json
 {
   "repo_name": "$repo_name",
   "commit_sha": "$commit_sha",
-  "commit_message": "`printf "%s" "$commit_message"`",
+  "commit_message": "`echo $commit_message | sed 's/"/\\"/g'`",
   "commit_author": "$commit_author",
   "channel": "$channel",
   "action": "$action",
