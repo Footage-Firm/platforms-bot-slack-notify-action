@@ -14,11 +14,13 @@ argocd_app="${8?Must provide the argocd app name}"
 channel="${9}"
 slack_ts="${10}"
 
+escaped_message=$(echo $commit_message | sed 's/"/\\"/g')
+
 cat <<EOF >> /tmp/payload.json
 {
   "repo_name": "$repo_name",
   "commit_sha": "$commit_sha",
-  "commit_message": "`echo $commit_message | sed 's/"/\\"/g'`",
+  "commit_message": "$escaped_message",
   "commit_author": "$commit_author",
   "channel": "$channel",
   "action": "$action",
