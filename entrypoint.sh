@@ -18,6 +18,7 @@ escaped_message=$(echo $commit_message | sed 's/"/\\"/g')
 
 cat <<EOF >> /tmp/payload.json
 {
+  "type": "notify_action",
   "repo_name": "$repo_name",
   "commit_sha": "$commit_sha",
   "commit_message": "$escaped_message",
