@@ -18,6 +18,7 @@ escaped_message=$(echo $commit_message | sed 's/"/\\"/g')
 
 cat <<EOF >> /tmp/payload.json
 {
+  "type": "notify_action",
   "repo_name": "$repo_name",
   "commit_sha": "$commit_sha",
   "commit_message": "$escaped_message",
@@ -33,6 +34,4 @@ echo "Generated request"
 cat /tmp/payload.json
 
 TOKEN=$(echo $platforms_bot_token | tr -d \\n | base64)
-SLACK_TS=$(curl -X POST https://platforms-bot.storyblocks.io/webhooks/github -H "Authorization: Bearer $TOKEN" --data "@/tmp/payload.json" | jq -r .ts)
-echo slack ts ====== $SLACK_TS
-echo "::set-output name=slack_ts::$SLACK_TS"
+curl -X POST https://platforms-bot.storyblocks.io/webhooks/github/events -H "Authorization: Bearer $TOKEN" --data "@/tmp/payload.json"
